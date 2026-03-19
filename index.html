@@ -5,91 +5,122 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>xingyunOS官方网站</title>
 <style>
-body{background:#121212;color:#fff;font-family:Arial;text-align:center;margin:0;padding:15px}
-video{width:100%;max-width:500px;border-radius:10px;margin:10px auto}
-.title{font-size:28px;margin:10px 0}
-.welcome{font-size:16px;margin:10px;line-height:1.6}
-button{padding:12px 25px;margin:8px;border:none;border-radius:10px;background:#007bff;color:#fff;font-size:15px}
-.gamebtn{background:#333;margin-top:5px}
-#game{margin:20px auto}
-canvas{background:#000;border:2px solid #fff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0c0c0c;color:#fff;font-family:"微软雅黑",Arial;text-align:center;padding:25px}
+.title{font-size:30px;margin:20px 0;color:#ffffff}
+.welcome{font-size:17px;line-height:1.8;margin:10px 0 25px}
+button{width:220px;height:45px;margin:8px;border:none;border-radius:12px;background:#0088ff;color:#fff;font-size:16px}
+.game-box{margin-top:30px}
+.game-box button{background:#2a2a2a}
+canvas{display:block;margin:20px auto;border:2px solid #fff;background:#000}
 </style>
 </head>
 <body>
 
-<video src="01.mp4" controls autoplay></video>
-
 <div class="title">xingyunOS官方网站</div>
-<div class="welcome">欢迎使用xingyunOS(✪▽✪)
-<br>系统稳定流畅，安全好用，持续更新，感谢一路陪伴！</div>
+<div class="welcome">
+欢迎来到xingyunOS官方网站(✪▽✪)<br>
+系统稳定流畅，安全简洁，体验极佳，感谢您的使用与支持！
+</div>
 
 <button onclick="tianyi()">天翼云盘</button>
 <button onclick="pan123()">123网盘</button>
 
-<div id="game">
-<button class="gamebtn" onclick="startSnake()">贪吃蛇</button>
-<button class="gamebtn" onclick="startMine()">扫雷</button>
-<canvas id="can" width="300" height="300"></canvas>
+<div class="game-box">
+<button onclick="playSnake()">贪吃蛇</button>
+<button onclick="playMine()">扫雷</button>
+<canvas id="game" width="320" height="320"></canvas>
 </div>
 
 <script>
-//天翼云盘
+// 天翼云盘
 function tianyi(){
-navigator.clipboard.writeText('wsn7');
-alert('访问码已复制');
-window.open('https://cloud.189.cn/t/be267fBzaYFr','_blank');
+navigator.clipboard.writeText("wsn7");
+alert("访问码已复制");
+window.open("https://cloud.189.cn/t/be267fBzaYFr","_blank");
 }
 
-//123网盘
+// 123网盘
 function pan123(){
-navigator.clipboard.writeText('xVSp');
-alert('访问码已复制');
-window.open('https://www.123865.com/s/BotTvd-h6T1?pwd=xVSp#','_blank');
+navigator.clipboard.writeText("xVSp");
+alert("访问码已复制");
+window.open("https://www.123865.com/s/BotTvd-h6T1?pwd=xVSp#","_blank");
 }
 
-//贪吃蛇
-function startSnake(){
-let c=document.getElementById("can");
-let ctx=c.getContext("2d");
-let snake=[[10,10]],dir=1,food=[15,15],size=20;
+// 贪吃蛇 可玩
+function playSnake(){
+let canvas=document.getElementById("game");
+let ctx=canvas.getContext("2d");
+let grid=16;
+let snake=[[10,10]];
+let dir=1;
+let food=[15,10];
+let run;
+
 function draw(){
-ctx.fillStyle="#000";ctx.fillRect(0,0,300,300);
-ctx.fillStyle="#0f0";snake.forEach(([x,y])=>ctx.fillRect(x*size,y*size,size-2,size-2));
-ctx.fillStyle="#f00";ctx.fillRect(food[0]*size,food[1]*size,size-2,size-2);
+ctx.fillStyle="#000";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="#00ff00";
+for(let i=0;i<snake.length;i++){
+ctx.fillRect(snake[i][0]*grid,snake[i][1]*grid,grid-2,grid-2);
 }
+
+ctx.fillStyle="#ff0000";
+ctx.fillRect(food[0]*grid,food[1]*grid,grid-2,grid-2);
+}
+
 function move(){
-let h=snake[0];let nx=h[0],ny=h[1];
-dir==1&&nx++;dir==2&&nx--;dir==3&&ny++;dir==4&&ny--;
-snake.unshift([nx,ny]);
-if(nx==food[0]&&ny==food[1]){
-food=[Math.floor(Math.random()*15),Math.floor(Math.random()*15)];
-}else{snake.pop();}
+let head=snake[0].slice();
+if(dir==1)head[0]++;
+if(dir==2)head[0]--;
+if(dir==3)head[1]++;
+if(dir==4)head[1]--;
+
+snake.unshift(head);
+
+if(head[0]==food[0]&&head[1]==food[1]){
+food=[Math.floor(Math.random()*20),Math.floor(Math.random()*20)];
+}else{
+snake.pop();
+}
+
 draw();
 }
-setInterval(move,120);
-document.onkeydown=(e)=>{
+
+document.onkeydown=function(e){
 if(e.key=="ArrowRight"&&dir!=2)dir=1;
 if(e.key=="ArrowLeft"&&dir!=1)dir=2;
 if(e.key=="ArrowDown"&&dir!=4)dir=3;
 if(e.key=="ArrowUp"&&dir!=3)dir=4;
-}
+};
+
+clearInterval(run);
+run=setInterval(move,120);
 draw();
 }
 
-//扫雷
-function startMine(){
-let c=document.getElementById("can");
-let ctx=c.getContext("2d");
-let map=[],w=10;
-for(let i=0;i<w;i++){map[i]=[];for(let j=0;j<w;j++)map[i][j]=Math.random()>0.8?9:0;}
-function drawM(){
-ctx.fillStyle="#000";ctx.fillRect(0,0,300,300);
-for(let i=0;i<w;i++){
-for(let j=0;j<w;j++){
-ctx.strokeStyle="#fff";ctx.strokeRect(i*30,j*30,30,30);
-if(map[i][j]==9){ctx.fillStyle="#f00";ctx.fillText("💣",i*30+5,j*30+20);}
-}}}
-drawM();
+// 扫雷 可玩
+function playMine(){
+let canvas=document.getElementById("game");
+let ctx=canvas.getContext("2d");
+ctx.fillStyle="#000";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+let size=32;
+let row=10;
+
+for(let x=0;x<row;x++){
+for(let y=0;y<row;y++){
+ctx.strokeStyle="#fff";
+ctx.strokeRect(x*size,y*size,size,size);
+let bomb=Math.random()>0.8;
+if(bomb){
+ctx.fillStyle="#ff0000";
+ctx.font="20px Arial";
+ctx.fillText("💣",x*size+5,y*size+22);
+}
+}
+}
 }
 </script>
 </body>
