@@ -2,125 +2,908 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>xingyunOS官方网站</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>xingyunOS官方网站 - 基于安卓9深度定制 | VMOS Pro专属系统</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#0c0c0c;color:#fff;font-family:"微软雅黑",Arial;text-align:center;padding:25px}
-.title{font-size:30px;margin:20px 0;color:#ffffff}
-.welcome{font-size:17px;line-height:1.8;margin:10px 0 25px}
-button{width:220px;height:45px;margin:8px;border:none;border-radius:12px;background:#0088ff;color:#fff;font-size:16px}
-.game-box{margin-top:30px}
-.game-box button{background:#2a2a2a}
-canvas{display:block;margin:20px auto;border:2px solid #fff;background:#000}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui, "Microsoft YaHei", sans-serif;}
+:root{
+    --bg-dark:#0a0a0d;
+    --bg-card:#121218;
+    --bg-hover:#1a1a25;
+    --main-blue:#007bff;
+    --light-blue:#3399ff;
+    --text-white:#ffffff;
+    --text-gray:#b0b0b8;
+    --border-color:#252530;
+}
+html{scroll-behavior:smooth;}
+body{
+    background:var(--bg-dark);
+    color:var(--text-white);
+    line-height:1.8;
+    overflow-x:hidden;
+    -webkit-tap-highlight-color:transparent;
+}
+/* 导航栏 */
+nav{
+    position:sticky;
+    top:0;
+    width:100%;
+    background:rgba(10,10,13,0.85);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border-color);
+    z-index:999;
+    padding:12px 0;
+}
+.nav-container{
+    max-width:1400px;
+    margin:0 auto;
+    padding:0 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+.logo{
+    font-size:22px;
+    font-weight:bold;
+    color:var(--main-blue);
+    letter-spacing:0.5px;
+}
+.nav-menu{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+.nav-menu a{
+    color:var(--text-white);
+    text-decoration:none;
+    font-size:15px;
+    transition:all 0.3s;
+}
+.nav-menu a:hover{
+    color:var(--main-blue);
+}
+/* 首屏区域 */
+.hero{
+    max-width:1400px;
+    margin:40px auto;
+    padding:0 20px;
+    text-align:center;
+}
+.hero h1{
+    font-size:38px;
+    margin-bottom:20px;
+    background:linear-gradient(135deg,var(--main-blue),#80bfff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+}
+.hero .slogan{
+    font-size:18px;
+    color:var(--text-gray);
+    margin-bottom:30px;
+    max-width:900px;
+    margin-left:auto;
+    margin-right:auto;
+}
+.hero .btn-group{
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:40px;
+}
+.btn-primary{
+    padding:14px 35px;
+    background:var(--main-blue);
+    color:white;
+    border:none;
+    border-radius:12px;
+    font-size:17px;
+    cursor:pointer;
+    transition:all 0.3s;
+    text-decoration:none;
+}
+.btn-primary:hover{
+    background:var(--light-blue);
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(0,123,255,0.3);
+}
+.btn-secondary{
+    padding:14px 35px;
+    background:var(--bg-card);
+    color:white;
+    border:1px solid var(--border-color);
+    border-radius:12px;
+    font-size:17px;
+    cursor:pointer;
+    transition:all 0.3s;
+    text-decoration:none;
+}
+.btn-secondary:hover{
+    background:var(--bg-hover);
+    border-color:var(--main-blue);
+    transform:translateY(-2px);
+}
+/* 通用卡片样式 */
+.section{
+    max-width:1200px;
+    margin:60px auto;
+    padding:0 20px;
+}
+.section-title{
+    font-size:30px;
+    text-align:center;
+    margin-bottom:15px;
+    color:var(--text-white);
+}
+.section-desc{
+    font-size:16px;
+    color:var(--text-gray);
+    text-align:center;
+    margin-bottom:40px;
+    max-width:1000px;
+    margin-left:auto;
+    margin-right:auto;
+}
+.card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:25px;
+}
+.card{
+    background:var(--bg-card);
+    border:1px solid var(--border-color);
+    border-radius:16px;
+    padding:25px;
+    transition:all 0.3s;
+}
+.card:hover{
+    border-color:var(--main-blue);
+    transform:translateY(-5px);
+    box-shadow:0 10px 30px rgba(0,123,255,0.2);
+}
+.card h3{
+    font-size:22px;
+    margin-bottom:15px;
+    color:var(--main-blue);
+}
+.card p{
+    color:var(--text-gray);
+    font-size:15px;
+    line-height:1.8;
+}
+/* 下载区域 */
+.download-section{
+    background:var(--bg-card);
+    border-radius:20px;
+    padding:40px 20px;
+    text-align:center;
+    margin:60px auto;
+    max-width:1200px;
+    border:1px solid var(--border-color);
+}
+.download-section h2{
+    font-size:30px;
+    margin-bottom:15px;
+}
+.download-section p{
+    font-size:16px;
+    color:var(--text-gray);
+    margin-bottom:30px;
+}
+.download-btn-group{
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+/* 小游戏区域 */
+.game-section{
+    margin:60px auto;
+    max-width:1200px;
+    padding:0 20px;
+}
+.game-container{
+    background:var(--bg-card);
+    border-radius:16px;
+    padding:30px 20px;
+    border:1px solid var(--border-color);
+    text-align:center;
+}
+.game-btn-group{
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:25px;
+}
+.game-btn{
+    padding:12px 25px;
+    background:var(--bg-hover);
+    color:white;
+    border:1px solid var(--border-color);
+    border-radius:10px;
+    font-size:15px;
+    cursor:pointer;
+    transition:all 0.3s;
+}
+.game-btn:hover{
+    background:var(--main-blue);
+    border-color:var(--main-blue);
+}
+canvas{
+    border:2px solid var(--border-color);
+    border-radius:10px;
+    background:#000;
+    max-width:100%;
+    margin:0 auto;
+    display:block;
+    touch-action:none;
+}
+/* FAQ区域 */
+.faq-item{
+    background:var(--bg-card);
+    border:1px solid var(--border-color);
+    border-radius:12px;
+    margin-bottom:15px;
+    overflow:hidden;
+}
+.faq-question{
+    padding:18px 25px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    transition:all 0.3s;
+}
+.faq-question:hover{
+    background:var(--bg-hover);
+}
+.faq-answer{
+    padding:0 25px 18px;
+    color:var(--text-gray);
+    font-size:15px;
+    line-height:1.8;
+}
+/* 页脚 */
+footer{
+    background:var(--bg-card);
+    border-top:1px solid var(--border-color);
+    padding:50px 20px 25px;
+    margin-top:80px;
+}
+.footer-container{
+    max-width:1200px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:30px;
+    margin-bottom:30px;
+}
+.footer-col h4{
+    font-size:18px;
+    margin-bottom:18px;
+    color:var(--main-blue);
+}
+.footer-col a{
+    display:block;
+    color:var(--text-gray);
+    text-decoration:none;
+    margin-bottom:8px;
+    transition:all 0.3s;
+}
+.footer-col a:hover{
+    color:var(--main-blue);
+    padding-left:5px;
+}
+.copyright{
+    text-align:center;
+    color:var(--text-gray);
+    padding-top:25px;
+    border-top:1px solid var(--border-color);
+    font-size:14px;
+}
+/* 弹窗 */
+.modal{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:var(--bg-card);
+    border:1px solid var(--main-blue);
+    border-radius:12px;
+    padding:15px 30px;
+    font-size:16px;
+    color:white;
+    z-index:9999;
+    box-shadow:0 10px 40px rgba(0,0,0,0.5);
+    display:none;
+}
+/* 响应式适配 */
+@media (max-width:768px){
+    .hero h1{font-size:30px;}
+    .section-title{font-size:24px;}
+    .nav-menu{gap:10px;}
+    .card-grid{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
 
-<div class="title">xingyunOS官方网站</div>
-<div class="welcome">
-欢迎来到xingyunOS官方网站(✪▽✪)<br>
-系统稳定流畅，安全简洁，体验极佳，感谢您的使用与支持！
+<!-- 导航栏 -->
+<nav>
+    <div class="nav-container">
+        <div class="logo">xingyunOS</div>
+        <div class="nav-menu">
+            <a href="#home">首页</a>
+            <a href="#intro">系统介绍</a>
+            <a href="#feature">核心特性</a>
+            <a href="#download">立即下载</a>
+            <a href="#game">休闲小游戏</a>
+            <a href="#faq">常见问题</a>
+        </div>
+    </div>
+</nav>
+
+<!-- 首屏区域 -->
+<div class="hero" id="home">
+    <h1>xingyunOS 官方网站</h1>
+    <p class="slogan">基于安卓9 Pie深度定制，专为VMOS Pro打造的ARM 32/64位轻量、流畅、无广告专属系统，让你的虚拟机重获新生，体验极致纯净的安卓环境</p>
+    <div class="btn-group">
+        <a href="#download" class="btn-primary">立即下载</a>
+        <a href="#intro" class="btn-secondary">了解系统</a>
+    </div>
 </div>
 
-<button onclick="tianyi()">天翼云盘</button>
-<button onclick="pan123()">123网盘</button>
-
-<div class="game-box">
-<button onclick="playSnake()">贪吃蛇</button>
-<button onclick="playMine()">扫雷</button>
-<canvas id="game" width="320" height="320"></canvas>
+<!-- 系统介绍区域 -->
+<div class="section" id="intro">
+    <h2 class="section-title">系统概述</h2>
+    <p class="section-desc">xingyunOS是一款专为VMOS Pro深度优化的安卓定制系统，基于原生安卓9 Pie底层打造，针对ARM 32/64位架构做了全维度适配，彻底解决原生安卓在虚拟机中卡顿、臃肿、资源占用高的痛点，为你打造纯净、流畅、可控的虚拟机系统环境</p>
+    
+    <div class="card-grid">
+        <div class="card">
+            <h3>定制初心与核心定位</h3>
+            <p>原生安卓9系统虽兼容性与稳定性出众，但自带大量冗余预装应用与后台服务，在VMOS Pro虚拟机环境中运行时，会严重占用有限的内存与CPU资源，导致虚拟机卡顿、发热、掉帧，同时还会推送广告、收集用户隐私数据，无法为用户带来纯粹的使用体验。</p>
+            <p>xingyunOS的诞生，正是为了彻底解决这些痛点。我们以原生安卓9为底层，仅保留最核心的系统功能，砍掉所有无用的冗余服务与预装应用，针对VMOS Pro的运行场景做了深度性能优化与专属适配，让系统在虚拟机中也能极致流畅运行，同时承诺永久无广告、无预装、无隐私收集，把系统的控制权完完全全交还给用户。</p>
+        </div>
+        <div class="card">
+            <h3>基于安卓9的核心优势</h3>
+            <p>我们选择安卓9 Pie作为系统底层，是因为它是安卓历史上兼容性最强、稳定性最高、口碑最好的版本之一，对VMOS Pro虚拟机环境的适配性极佳，不会出现高版本安卓的兼容性问题，能为用户带来稳定可靠的运行基础。</p>
+            <p>同时，安卓9拥有成熟的权限管控机制与完善的应用生态，几乎所有安卓应用都能在安卓9上完美运行，无论是日常社交、娱乐应用，还是工具类、游戏类应用，都能获得稳定的运行体验，不会出现闪退、功能异常等问题，完美满足VMOS Pro的各类使用场景需求。我们在原生安卓9的基础上，做了深度精简与优化，大幅降低了系统的内存与存储空间占用，让虚拟机也能获得丝滑流畅的操作体验。</p>
+        </div>
+        <div class="card">
+            <h3>VMOS Pro专属架构适配</h3>
+            <p>xingyunOS专为VMOS Pro打造，完美支持ARM 32位与ARM 64位双架构，无论是老旧的32位VMOS Pro虚拟机，还是最新的64位版本，都能完美安装运行，无需担心架构不兼容的问题。</p>
+            <p>我们针对不同架构的VMOS Pro虚拟机做了专门的性能优化：针对32位版本做了极致精简，进一步降低系统资源占用，让老旧配置也能流畅运行；针对64位版本做了性能提升，充分发挥64位架构的性能优势，让系统运行更流畅，多任务处理能力更强。</p>
+            <p>同时，我们针对VMOS Pro的镜像导入机制做了全维度适配，无需复杂配置，下载镜像后一键导入即可使用，大幅降低了用户的使用门槛。</p>
+        </div>
+    </div>
 </div>
+
+<!-- 核心特性区域 -->
+<div class="section" id="feature">
+    <h2 class="section-title">核心特性</h2>
+    <p class="section-desc">我们在原生安卓9的基础上，做了全维度的优化和定制，每一个特性都针对VMOS Pro场景打磨，只为给你带来最好的虚拟机使用体验</p>
+    
+    <div class="card-grid">
+        <div class="card">
+            <h3>极致精简 流畅不卡顿</h3>
+            <p>xingyunOS对原生安卓9系统做了深度精简，砍掉了所有无用的预装应用、冗余系统服务与后台进程，大幅缩小了系统安装包体积，显著降低了系统的存储空间与内存占用。</p>
+            <p>我们针对VMOS Pro的运行机制，优化了系统的进程调度机制，优先保障前台应用的资源占用，避免后台无用进程抢占资源，同时优化了系统的内存回收策略，能够及时释放无用内存空间，即使是配置较低的设备运行VMOS Pro，也能获得丝滑流畅的操作体验，彻底解决虚拟机卡顿、掉帧的问题。</p>
+        </div>
+        <div class="card">
+            <h3>永久纯净 无广告无预装</h3>
+            <p>我们郑重承诺，xingyunOS永久无广告、无预装、无捆绑。系统本身不会内置任何广告，不会在任何界面推送商业推广信息，不会在通知栏弹出广告弹窗，为你打造绝对干净清爽的系统环境。</p>
+            <p>系统仅预装极少数必备的基础工具，不会预装任何用户不需要的第三方应用，更不会在用户安装应用时捆绑安装无关软件，把系统的控制权完完全全交还给用户，你可以根据自身需求，自由选择安装所需应用，无需被无用软件占用存储空间。</p>
+        </div>
+        <div class="card">
+            <h3>全方位隐私安全保护</h3>
+            <p>我们在原生安卓9的权限管控基础上，进一步升级了隐私安全防护体系，重构了系统的权限管理机制，所有应用的敏感权限，包括通讯录、位置信息、相机、麦克风、存储、通话记录等，都必须经过用户手动授权才能使用。</p>
+            <p>用户可以随时查看和修改每一个应用的权限，甚至可以给应用提供空白权限信息，让应用无法获取真实的用户数据，从根源上杜绝应用的权限滥用与隐私窃取。同时，系统彻底移除了原生安卓中的数据收集和跟踪代码，不会收集用户的任何使用数据，真正做到零跟踪、零收集。</p>
+        </div>
+        <div class="card">
+            <h3>VMOS Pro专属深度优化</h3>
+            <p>xingyunOS专为VMOS Pro场景打造，做了大量专属优化，彻底解决了原生安卓在虚拟机中运行的各类痛点。我们优化了系统的启动流程，大幅缩短了VMOS Pro的开机时间，从启动到进入系统桌面仅需短短几秒，无需长时间等待。</p>
+            <p>我们优化了系统的资源占用，降低了系统的CPU与内存占用，减少了虚拟机的发热与卡顿，同时优化了虚拟机的文件读写性能，提升了应用的安装与启动速度，让应用秒开秒响应。另外，我们还针对VMOS Pro的窗口化运行做了专属适配，优化了窗口化模式下的显示效果与操作体验，完美适配不同的屏幕分辨率。</p>
+        </div>
+        <div class="card">
+            <h3>极致兼容性 全应用适配</h3>
+            <p>基于安卓9 Pie底层打造的xingyunOS，拥有极致的应用兼容性，几乎所有的安卓应用都能在系统中完美运行，无论是日常使用的社交、娱乐、办公应用，还是各类工具类、游戏类应用，都能稳定运行，不会出现闪退、不兼容的问题。</p>
+            <p>我们针对各类特殊应用在VMOS Pro环境中的运行做了专门适配，解决了部分应用在虚拟机中无法运行、闪退的问题，同时保留了安卓9的完整API接口，不会因为系统精简导致应用功能异常，完美满足用户日常使用、应用测试、游戏挂机等各类需求。</p>
+        </div>
+        <div class="card">
+            <h3>高度自由 个性化定制</h3>
+            <p>xingyunOS为用户提供了高度自由的个性化定制能力，你可以根据自己的喜好，自由修改系统的主题、壁纸、图标样式、字体、开机动画等，打造完全属于自己的系统界面。</p>
+            <p>我们开放了系统的高级权限，支持用户对系统进行深度定制与修改，你可以根据自身需求，自由开启或关闭系统的各类功能，精简掉不需要的组件，进一步降低系统的资源占用。对于有一定技术能力的用户，我们还支持系统的二次开发，你可以基于xingyunOS打造属于自己的专属定制系统。</p>
+        </div>
+    </div>
+</div>
+
+<!-- 下载中心区域 -->
+<div class="download-section" id="download">
+    <h2>立即下载</h2>
+    <p>当前最新版本：xingyunOS 1.0 正式版 | 基于安卓9深度定制 | 仅支持VMOS Pro | 适配ARM 32/64位 | 更新时间：2026年03月19日</p>
+    <p>历史版本仅当前1.0正式版，无其他历史版本。点击下方对应网盘按钮，即可下载系统镜像文件，点击后自动跳转下载页面，同时复制提取码。</p>
+    <div class="download-btn-group">
+        <button class="btn-primary" onclick="openTianyi()">天翼云盘下载</button>
+        <button class="btn-primary" onclick="open123Pan()">123网盘下载</button>
+    </div>
+</div>
+
+<!-- 小游戏区域 -->
+<div class="game-section" id="game">
+    <h2 class="section-title">休闲小游戏</h2>
+    <p class="section-desc">工作学习之余，放松身心。内置经典贪吃蛇与扫雷小游戏，无需安装，打开即玩，完美适配触屏操作</p>
+    <div class="game-container">
+        <div class="game-btn-group">
+            <button class="game-btn" onclick="startSnake()">贪吃蛇</button>
+            <button class="game-btn" onclick="startMine()">扫雷</button>
+        </div>
+        <canvas id="gameCanvas" width="360" height="360"></canvas>
+    </div>
+</div>
+
+<!-- FAQ常见问题区域 -->
+<div class="section" id="faq">
+    <h2 class="section-title">常见问题 FAQ</h2>
+    <p class="section-desc">这里整理了用户最常问到的问题，如果你在使用过程中遇到了其他问题，可以通过官方渠道反馈</p>
+    
+    <div class="faq-item">
+        <div class="faq-question">
+            <span>xingyunOS是免费的吗？会不会收费？</span>
+        </div>
+        <div class="faq-answer">
+            <p>xingyunOS是完全免费的定制系统，个人用户可以免费下载、使用、修改，不会收取任何费用，未来也不会推出付费版本，我们承诺系统永久免费、永久无广告、永久无捆绑。</p>
+        </div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">
+            <span>xingyunOS支持哪些虚拟机？我的VMOS Pro能用吗？</span>
+        </div>
+        <div class="faq-answer">
+            <p>xingyunOS为VMOS Pro专属定制系统，仅支持VMOS Pro虚拟机，全版本VMOS Pro均可适配，只要你的VMOS Pro支持导入自定义镜像，支持ARM 32位或64位架构，就能完美使用xingyunOS。</p>
+        </div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">
+            <span>安装xingyunOS会影响我真机的系统吗？</span>
+        </div>
+        <div class="faq-answer">
+            <p>完全不会。xingyunOS是专为虚拟机打造的系统，只会运行在VMOS Pro环境中，和你的真机系统完全隔离，不会对真机的系统、数据、文件造成任何影响，你可以放心安装和使用。</p>
+        </div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">
+            <span>xingyunOS支持root权限吗？</span>
+        </div>
+        <div class="faq-answer">
+            <p>是的，xingyunOS默认开启了完整的root权限，你可以直接使用需要root权限的应用和工具，无需额外进行root操作，同时我们也保留了magisk的适配能力，你可以根据自己的需求安装magisk模块，进一步扩展系统功能。</p>
+        </div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">
+            <span>我是新手，不会在VMOS Pro中导入镜像怎么办？</span>
+        </div>
+        <div class="faq-answer">
+            <p>我们为新手用户准备了详细的VMOS Pro专属图文导入教程，一步步拆解导入流程，即使是完全没有接触过虚拟机的新手，也能按照教程完成导入，一键启用xingyunOS。如果你在导入过程中遇到了问题，也可以通过官方渠道反馈，我们会尽力为你提供帮助。</p>
+        </div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">
+            <span>系统会持续更新吗？</span>
+        </div>
+        <div class="faq-answer">
+            <p>我们会持续对xingyunOS进行更新与维护，不断优化系统的性能与兼容性，修复已知问题，同时根据用户的反馈添加更多实用功能，为用户带来更好的使用体验。后续更新可在系统设置中一键完成，无需重新导入镜像。</p>
+        </div>
+    </div>
+</div>
+
+<!-- 页脚 -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-col">
+            <h4>关于xingyunOS</h4>
+            <a href="#intro">系统介绍</a>
+            <a href="#feature">核心特性</a>
+            <a href="#faq">常见问题</a>
+        </div>
+        <div class="footer-col">
+            <h4>下载中心</h4>
+            <a href="#download">最新版本下载</a>
+            <a href="#">VMOS Pro镜像导入教程</a>
+            <a href="#">历史版本</a>
+        </div>
+        <div class="footer-col">
+            <h4>用户支持</h4>
+            <a href="#">使用教程</a>
+            <a href="#">问题反馈</a>
+            <a href="#">用户交流群</a>
+        </div>
+        <div class="footer-col">
+            <h4>关注我们</h4>
+            <a href="https://github.com/xingyunOS-your/xingyunOS">GitHub仓库</a>
+            <a href="mailto:3835347820@qq.com">开发者邮箱</a>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>© 2026 xingyunOS 官方网站 版权所有 | 基于安卓9深度定制 | VMOS Pro专属系统</p>
+    </div>
+</footer>
+
+<!-- 提示弹窗 -->
+<div class="modal" id="tipModal">访问码已复制</div>
 
 <script>
-// 天翼云盘
-function tianyi(){
-navigator.clipboard.writeText("wsn7");
-alert("访问码已复制");
-window.open("https://cloud.189.cn/t/be267fBzaYFr","_blank");
+// 弹窗提示
+const modal = document.getElementById("tipModal");
+function showTip(text){
+    modal.innerText = text;
+    modal.style.display = "block";
+    setTimeout(()=>{
+        modal.style.display = "none";
+    }, 2000);
 }
 
-// 123网盘
-function pan123(){
-navigator.clipboard.writeText("xVSp");
-alert("访问码已复制");
-window.open("https://www.123865.com/s/BotTvd-h6T1?pwd=xVSp#","_blank");
+// 网盘跳转逻辑 先跳转再复制，确保跳转精准
+function openTianyi(){
+    window.open("https://cloud.189.cn/t/be267fBzaYFr","_blank");
+    try{
+        navigator.clipboard.writeText("wsn7").then(()=>{
+            showTip("访问码已复制");
+        }).catch(()=>{
+            showTip("跳转成功，访问码：wsn7");
+        });
+    }catch(e){
+        showTip("跳转成功，访问码：wsn7");
+    }
 }
 
-// 贪吃蛇 可玩
-function playSnake(){
-let canvas=document.getElementById("game");
-let ctx=canvas.getContext("2d");
-let grid=16;
-let snake=[[10,10]];
-let dir=1;
-let food=[15,10];
-let run;
-
-function draw(){
-ctx.fillStyle="#000";
-ctx.fillRect(0,0,canvas.width,canvas.height);
-
-ctx.fillStyle="#00ff00";
-for(let i=0;i<snake.length;i++){
-ctx.fillRect(snake[i][0]*grid,snake[i][1]*grid,grid-2,grid-2);
+function open123Pan(){
+    window.open("https://www.123865.com/s/BotTvd-h6T1?pwd=xVSp#","_blank");
+    try{
+        navigator.clipboard.writeText("xVSp").then(()=>{
+            showTip("提取码已复制");
+        }).catch(()=>{
+            showTip("跳转成功，提取码：xVSp");
+        });
+    }catch(e){
+        showTip("跳转成功，提取码：xVSp");
+    }
 }
 
-ctx.fillStyle="#ff0000";
-ctx.fillRect(food[0]*grid,food[1]*grid,grid-2,grid-2);
+// FAQ折叠功能
+const faqQuestions = document.querySelectorAll(".faq-question");
+faqQuestions.forEach(question=>{
+    question.addEventListener("click",()=>{
+        const answer = question.nextElementSibling;
+        answer.style.display = answer.style.display === "block" ? "none" : "block";
+    });
+    faqQuestions[0].nextElementSibling.style.display = "block";
+});
+
+// 贪吃蛇游戏 适配触屏
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+let snakeInterval = null;
+let mineInterval = null;
+const gridSize = 18;
+const tileCount = canvas.width / gridSize;
+
+function startSnake(){
+    clearInterval(snakeInterval);
+    clearInterval(mineInterval);
+    let snake = [{x:10, y:10}];
+    let dx = 1;
+    let dy = 0;
+    let food = {x:15, y:15};
+    let score = 0;
+
+    function draw(){
+        ctx.fillStyle = "#000";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        
+        ctx.fillStyle = "#00ff00";
+        snake.forEach(segment=>{
+            ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize-2, gridSize-2);
+        });
+        
+        ctx.fillStyle = "#ff0000";
+        ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize-2, gridSize-2);
+        
+        ctx.fillStyle = "#fff";
+        ctx.font = "16px Arial";
+        ctx.fillText("分数: " + score, 10, 20);
+    }
+
+    function move(){
+        const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+        
+        if(head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount){
+            alert("游戏结束！你的分数: " + score);
+            clearInterval(snakeInterval);
+            return;
+        }
+        
+        for(let i=0; i<snake.length; i++){
+            if(snake[i].x === head.x && snake[i].y === head.y){
+                alert("游戏结束！你的分数: " + score);
+                clearInterval(snakeInterval);
+                return;
+            }
+        }
+        
+        snake.unshift(head);
+        
+        if(head.x === food.x && head.y === food.y){
+            score += 10;
+            food = {
+                x: Math.floor(Math.random() * tileCount),
+                y: Math.floor(Math.random() * tileCount)
+            };
+        }else{
+            snake.pop();
+        }
+        
+        draw();
+    }
+
+    // 键盘控制
+    document.onkeydown = function(e){
+        if(e.key === "ArrowRight" && dx !== -1){
+            dx = 1;
+            dy = 0;
+        }
+        if(e.key === "ArrowLeft" && dx !== 1){
+            dx = -1;
+            dy = 0;
+        }
+        if(e.key === "ArrowDown" && dy !== -1){
+            dx = 0;
+            dy = 1;
+        }
+        if(e.key === "ArrowUp" && dy !== 1){
+            dx = 0;
+            dy = -1;
+        }
+    }
+
+    // 触屏滑动控制
+    let touchStartX = 0;
+    let touchStartY = 0;
+    canvas.addEventListener("touchstart", function(e){
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        e.preventDefault();
+    });
+    canvas.addEventListener("touchend", function(e){
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+        const diffX = touchEndX - touchStartX;
+        const diffY = touchEndY - touchStartY;
+        
+        if(Math.abs(diffX) > Math.abs(diffY)){
+            if(diffX > 0 && dx !== -1){
+                dx = 1;
+                dy = 0;
+            }
+            if(diffX < 0 && dx !== 1){
+                dx = -1;
+                dy = 0;
+            }
+        }else{
+            if(diffY > 0 && dy !== -1){
+                dx = 0;
+                dy = 1;
+            }
+            if(diffY < 0 && dy !== 1){
+                dx = 0;
+                dy = -1;
+            }
+        }
+        e.preventDefault();
+    });
+
+    snakeInterval = setInterval(move, 150);
+    draw();
 }
 
-function move(){
-let head=snake[0].slice();
-if(dir==1)head[0]++;
-if(dir==2)head[0]--;
-if(dir==3)head[1]++;
-if(dir==4)head[1]--;
+// 扫雷游戏 适配触屏
+function startMine(){
+    clearInterval(snakeInterval);
+    clearInterval(mineInterval);
+    const mineGrid = 18;
+    const mineTotal = 20;
+    const mineTile = canvas.width / mineGrid;
+    let board = [];
+    let revealed = [];
+    let flagged = [];
+    let gameOver = false;
+    let win = false;
 
-snake.unshift(head);
+    function initBoard(){
+        board = Array(mineTile).fill().map(()=>Array(mineTile).fill(0));
+        revealed = Array(mineTile).fill().map(()=>Array(mineTile).fill(false));
+        flagged = Array(mineTile).fill().map(()=>Array(mineTile).fill(false));
+        
+        let minesPlaced = 0;
+        while(minesPlaced < mineTotal){
+            const x = Math.floor(Math.random() * mineTile);
+            const y = Math.floor(Math.random() * mineTile);
+            if(board[x][y] !== -1){
+                board[x][y] = -1;
+                minesPlaced++;
+            }
+        }
+        
+        for(let x=0; x<mineTile; x++){
+            for(let y=0; y<mineTile; y++){
+                if(board[x][y] === -1) continue;
+                let count = 0;
+                for(let dx=-1; dx<=1; dx++){
+                    for(let dy=-1; dy<=1; dy++){
+                        const nx = x + dx;
+                        const ny = y + dy;
+                        if(nx >=0 && nx < mineTile && ny >=0 && ny < mineTile && board[nx][ny] === -1){
+                            count++;
+                        }
+                    }
+                }
+                board[x][y] = count;
+            }
+        }
+    }
 
-if(head[0]==food[0]&&head[1]==food[1]){
-food=[Math.floor(Math.random()*20),Math.floor(Math.random()*20)];
-}else{
-snake.pop();
-}
+    function draw(){
+        ctx.fillStyle = "#000";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        
+        for(let x=0; x<mineTile; x++){
+            for(let y=0; y<mineTile; y++){
+                ctx.strokeStyle = "#444";
+                ctx.strokeRect(x * mineGrid, y * mineGrid, mineGrid, mineGrid);
+                
+                if(revealed[x][y]){
+                    if(board[x][y] === -1){
+                        ctx.fillStyle = "#ff0000";
+                        ctx.fillRect(x * mineGrid, y * mineGrid, mineGrid, mineGrid);
+                        ctx.fillStyle = "#fff";
+                        ctx.font = "14px Arial";
+                        ctx.fillText("💣", x*mineGrid + 3, y*mineGrid + 15);
+                    }else{
+                        ctx.fillStyle = "#222";
+                        ctx.fillRect(x * mineGrid, y * mineGrid, mineGrid, mineGrid);
+                        if(board[x][y] > 0){
+                            const colors = ["#fff", "#00ff00", "#0099ff", "#ff00ff", "#ffff00", "#ff6600", "#ff0000", "#cc0000", "#990000"];
+                            ctx.fillStyle = colors[board[x][y]];
+                            ctx.font = "14px Arial";
+                            ctx.fillText(board[x][y], x*mineGrid + 6, y*mineGrid + 14);
+                        }
+                    }
+                }else if(flagged[x][y]){
+                    ctx.fillStyle = "#ffcc00";
+                    ctx.fillRect(x * mineGrid, y * mineGrid, mineGrid, mineGrid);
+                    ctx.fillStyle = "#000";
+                    ctx.font = "14px Arial";
+                    ctx.fillText("🚩", x*mineGrid + 3, y*mineGrid + 15);
+                }else{
+                    ctx.fillStyle = "#333";
+                    ctx.fillRect(x * mineGrid, y * mineGrid, mineGrid, mineGrid);
+                }
+            }
+        }
+        
+        if(gameOver){
+            ctx.fillStyle = "rgba(0,0,0,0.75)";
+            ctx.fillRect(0,0,canvas.width,canvas.height);
+            ctx.fillStyle = "#fff";
+            ctx.font = "28px Arial";
+            ctx.textAlign = "center";
+            ctx.fillText(win ? "你赢了！" : "游戏结束！", canvas.width/2, canvas.height/2);
+            ctx.font = "14px Arial";
+            ctx.fillText("点击重新开始", canvas.width/2, canvas.height/2 + 30);
+        }
+    }
 
-draw();
-}
+    function reveal(x,y){
+        if(x <0 || x >= mineTile || y <0 || y >= mineTile || revealed[x][y] || flagged[x][y] || gameOver) return;
+        
+        revealed[x][y] = true;
+        
+        if(board[x][y] === -1){
+            gameOver = true;
+            win = false;
+            for(let i=0; i<mineTile; i++){
+                for(let j=0; j<mineTile; j++){
+                    if(board[i][j] === -1) revealed[i][j] = true;
+                }
+            }
+            draw();
+            return;
+        }
+        
+        if(board[x][y] === 0){
+            for(let dx=-1; dx<=1; dx++){
+                for(let dy=-1; dy<=1; dy++){
+                    reveal(x+dx, y+dy);
+                }
+            }
+        }
+        
+        let revealedCount = 0;
+        for(let i=0; i<mineTile; i++){
+            for(let j=0; j<mineTile; j++){
+                if(revealed[i][j]) revealedCount++;
+            }
+        }
+        if(revealedCount === mineTile * mineTile - mineTotal){
+            gameOver = true;
+            win = true;
+        }
+        
+        draw();
+    }
 
-document.onkeydown=function(e){
-if(e.key=="ArrowRight"&&dir!=2)dir=1;
-if(e.key=="ArrowLeft"&&dir!=1)dir=2;
-if(e.key=="ArrowDown"&&dir!=4)dir=3;
-if(e.key=="ArrowUp"&&dir!=3)dir=4;
-};
+    // 点击翻开
+    canvas.addEventListener("click", function(e){
+        if(gameOver){
+            initBoard();
+            draw();
+            return;
+        }
+        const rect = canvas.getBoundingClientRect();
+        const x = Math.floor((e.clientX - rect.left) / mineGrid);
+        const y = Math.floor((e.clientY - rect.top) / mineGrid);
+        reveal(x,y);
+    });
 
-clearInterval(run);
-run=setInterval(move,120);
-draw();
-}
+    // 右键插旗
+    canvas.addEventListener("contextmenu", function(e){
+        e.preventDefault();
+        if(gameOver) return;
+        const rect = canvas.getBoundingClientRect();
+        const x = Math.floor((e.clientX - rect.left) / mineGrid);
+        const y = Math.floor((e.clientY - rect.top) / mineGrid);
+        if(!revealed[x][y]){
+            flagged[x][y] = !flagged[x][y];
+            draw();
+        }
+    });
 
-// 扫雷 可玩
-function playMine(){
-let canvas=document.getElementById("game");
-let ctx=canvas.getContext("2d");
-ctx.fillStyle="#000";
-ctx.fillRect(0,0,canvas.width,canvas.height);
-let size=32;
-let row=10;
+    // 触屏长按插旗
+    let touchTime = 0;
+    canvas.addEventListener("touchstart", function(e){
+        touchTime = Date.now();
+        e.preventDefault();
+    });
+    canvas.addEventListener("touchend", function(e){
+        e.preventDefault();
+        if(gameOver){
+            initBoard();
+            draw();
+            return;
+        }
+        const rect = canvas.getBoundingClientRect();
+        const touch = e.changedTouches[0];
+        const x = Math.floor((touch.clientX - rect.left) / mineGrid);
+        const y = Math.floor((touch.clientY - rect.top) / mineGrid);
+        const touchDiff = Date.now() - touchTime;
+        
+        if(touchDiff < 200){
+            reveal(x,y);
+        }else{
+            if(!revealed[x][y]){
+                flagged[x][y] = !flagged[x][y];
+                draw();
+            }
+        }
+    });
 
-for(let x=0;x<row;x++){
-for(let y=0;y<row;y++){
-ctx.strokeStyle="#fff";
-ctx.strokeRect(x*size,y*size,size,size);
-let bomb=Math.random()>0.8;
-if(bomb){
-ctx.fillStyle="#ff0000";
-ctx.font="20px Arial";
-ctx.fillText("💣",x*size+5,y*size+22);
-}
-}
-}
+    initBoard();
+    draw();
 }
 </script>
 </body>
