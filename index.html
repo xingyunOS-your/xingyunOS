@@ -2,32 +2,79 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>xingyunOS 开源主页</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>xingyunOS官方网站</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#121212;color:#fff;font-family:Arial;padding:30px 15px;text-align:center}
-.title{font-size:32px;margin:30px 0;color:#00ccff}
-.desc{font-size:18px;margin:15px 0;line-height:1.6}
-.btn{
-background:#00ccff;color:#000;border:none;border-radius:10px;
-width:220px;height:50px;line-height:50px;margin:12px auto;
-display:block;font-size:16px;text-decoration:none
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{background:#000;color:#fff;text-align:center}
+.videoPage{position:fixed;width:100vw;height:100vh;top:0;left:0;background:#000;display:flex;align-items:center;justify-content:center}
+#video{width:100%;height:100%;object-fit:cover}
+.mainPage{display:none;padding:30px;max-width:800px;margin:0 auto}
+.title{font-size:32px;margin:20px 0;color:#fff}
+.welcome{font-size:18px;margin:10px 0;line-height:2}
+.btn{background:#4285f4;color:#fff;border:none;padding:14px 30px;margin:10px;border-radius:12px;font-size:16px;width:220px;cursor:pointer}
+.game-box{margin-top:40px}
+.game-title{font-size:22px;margin:15px}
+.game-btn{background:#212121;color:#fff;padding:12px 25px;margin:8px;border-radius:10px;border:none;cursor:pointer}
+.modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;color:#000;padding:15px 25px;border-radius:10px;font-size:16px;display:none}
 </style>
 </head>
 <body>
-<h1 class="title">xingyunOS</h1>
-<p class="desc">轻量 · 简洁 · 流畅 · 开源</p>
-<p class="desc">感谢每一位使用者的支持</p>
-<p class="desc">持续更新，稳定流畅体验</p>
 
-<a class="btn" href="https://cloud.189.cn/t/be267fBzaYFr">天翼云盘</a>
-<a class="btn" href="https://www.123865.com/s/BotTvd-h6T1?pwd=xVSp#">123网盘</a>
+<div class="videoPage" id="videoPage">
+<video id="video" autoplay muted playsinline>
+<source src="01.mp4" type="video/mp4">
+</video>
+</div>
 
-<p style="margin-top:40px;font-size:14px;opacity:0.7">
-© 2026 xingyunOS 开源项目
-</p>
+<div class="mainPage" id="mainPage">
+<div class="title">xingyunOS官方网站</div>
+<div class="welcome">欢迎来到xingyunOS官方网站(✪▽✪)<br>感谢您的使用与支持，祝您使用愉快！<br>安全流畅，稳定好用，用心做好每一处细节</div>
+
+<button class="btn" onclick="open189()">天翼云盘</button>
+<button class="btn" onclick="open123()">123网盘</button>
+
+<div class="game-box">
+<div class="game-title">小游戏</div>
+<button class="game-btn" onclick="showSnake()">贪吃蛇</button>
+<button class="game-btn" onclick="showMine()">扫雷</button>
+</div>
+</div>
+
+<div class="modal" id="modal">已复制访问码</div>
+
+<script>
+const video = document.getElementById('video');
+video.onended = function(){
+document.getElementById('videoPage').style.display='none';
+document.getElementById('mainPage').style.display='block';
+}
+
+function msg(){
+let m = document.getElementById('modal');
+m.style.display='block';
+setTimeout(()=>m.style.display='none',1500);
+}
+
+function open189(){
+navigator.clipboard.writeText('wsn7');
+msg();
+window.open('https://cloud.189.cn/t/be267fBzaYFr','_blank');
+}
+
+function open123(){
+navigator.clipboard.writeText('xVSp');
+msg();
+window.open('https://www.123865.com/s/BotTvd-h6T1?pwd=xVSp#','_blank');
+}
+
+function showSnake(){
+window.open('https://www.baidu.com/s?wd=在线贪吃蛇','_blank');
+}
+function showMine(){
+window.open('https://www.baidu.com/s?wd=在线扫雷','_blank');
+}
+</script>
 </body>
 </html>
 
