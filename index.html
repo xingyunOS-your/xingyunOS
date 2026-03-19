@@ -2,79 +2,95 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>xingyunOS官方网站</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-body{background:#000;color:#fff;text-align:center}
-.videoPage{position:fixed;width:100vw;height:100vh;top:0;left:0;background:#000;display:flex;align-items:center;justify-content:center}
-#video{width:100%;height:100%;object-fit:cover}
-.mainPage{display:none;padding:30px;max-width:800px;margin:0 auto}
-.title{font-size:32px;margin:20px 0;color:#fff}
-.welcome{font-size:18px;margin:10px 0;line-height:2}
-.btn{background:#4285f4;color:#fff;border:none;padding:14px 30px;margin:10px;border-radius:12px;font-size:16px;width:220px;cursor:pointer}
-.game-box{margin-top:40px}
-.game-title{font-size:22px;margin:15px}
-.game-btn{background:#212121;color:#fff;padding:12px 25px;margin:8px;border-radius:10px;border:none;cursor:pointer}
-.modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;color:#000;padding:15px 25px;border-radius:10px;font-size:16px;display:none}
+body{background:#121212;color:#fff;font-family:Arial;text-align:center;margin:0;padding:15px}
+video{width:100%;max-width:500px;border-radius:10px;margin:10px auto}
+.title{font-size:28px;margin:10px 0}
+.welcome{font-size:16px;margin:10px;line-height:1.6}
+button{padding:12px 25px;margin:8px;border:none;border-radius:10px;background:#007bff;color:#fff;font-size:15px}
+.gamebtn{background:#333;margin-top:5px}
+#game{margin:20px auto}
+canvas{background:#000;border:2px solid #fff}
 </style>
 </head>
 <body>
 
-<div class="videoPage" id="videoPage">
-<video id="video" autoplay muted playsinline>
-<source src="01.mp4" type="video/mp4">
-</video>
-</div>
+<video src="01.mp4" controls autoplay></video>
 
-<div class="mainPage" id="mainPage">
 <div class="title">xingyunOS官方网站</div>
-<div class="welcome">欢迎来到xingyunOS官方网站(✪▽✪)<br>感谢您的使用与支持，祝您使用愉快！<br>安全流畅，稳定好用，用心做好每一处细节</div>
+<div class="welcome">欢迎使用xingyunOS(✪▽✪)
+<br>系统稳定流畅，安全好用，持续更新，感谢一路陪伴！</div>
 
-<button class="btn" onclick="open189()">天翼云盘</button>
-<button class="btn" onclick="open123()">123网盘</button>
+<button onclick="tianyi()">天翼云盘</button>
+<button onclick="pan123()">123网盘</button>
 
-<div class="game-box">
-<div class="game-title">小游戏</div>
-<button class="game-btn" onclick="showSnake()">贪吃蛇</button>
-<button class="game-btn" onclick="showMine()">扫雷</button>
+<div id="game">
+<button class="gamebtn" onclick="startSnake()">贪吃蛇</button>
+<button class="gamebtn" onclick="startMine()">扫雷</button>
+<canvas id="can" width="300" height="300"></canvas>
 </div>
-</div>
-
-<div class="modal" id="modal">已复制访问码</div>
 
 <script>
-const video = document.getElementById('video');
-video.onended = function(){
-document.getElementById('videoPage').style.display='none';
-document.getElementById('mainPage').style.display='block';
-}
-
-function msg(){
-let m = document.getElementById('modal');
-m.style.display='block';
-setTimeout(()=>m.style.display='none',1500);
-}
-
-function open189(){
+//天翼云盘
+function tianyi(){
 navigator.clipboard.writeText('wsn7');
-msg();
+alert('访问码已复制');
 window.open('https://cloud.189.cn/t/be267fBzaYFr','_blank');
 }
 
-function open123(){
+//123网盘
+function pan123(){
 navigator.clipboard.writeText('xVSp');
-msg();
+alert('访问码已复制');
 window.open('https://www.123865.com/s/BotTvd-h6T1?pwd=xVSp#','_blank');
 }
 
-function showSnake(){
-window.open('https://www.baidu.com/s?wd=在线贪吃蛇','_blank');
+//贪吃蛇
+function startSnake(){
+let c=document.getElementById("can");
+let ctx=c.getContext("2d");
+let snake=[[10,10]],dir=1,food=[15,15],size=20;
+function draw(){
+ctx.fillStyle="#000";ctx.fillRect(0,0,300,300);
+ctx.fillStyle="#0f0";snake.forEach(([x,y])=>ctx.fillRect(x*size,y*size,size-2,size-2));
+ctx.fillStyle="#f00";ctx.fillRect(food[0]*size,food[1]*size,size-2,size-2);
 }
-function showMine(){
-window.open('https://www.baidu.com/s?wd=在线扫雷','_blank');
+function move(){
+let h=snake[0];let nx=h[0],ny=h[1];
+dir==1&&nx++;dir==2&&nx--;dir==3&&ny++;dir==4&&ny--;
+snake.unshift([nx,ny]);
+if(nx==food[0]&&ny==food[1]){
+food=[Math.floor(Math.random()*15),Math.floor(Math.random()*15)];
+}else{snake.pop();}
+draw();
+}
+setInterval(move,120);
+document.onkeydown=(e)=>{
+if(e.key=="ArrowRight"&&dir!=2)dir=1;
+if(e.key=="ArrowLeft"&&dir!=1)dir=2;
+if(e.key=="ArrowDown"&&dir!=4)dir=3;
+if(e.key=="ArrowUp"&&dir!=3)dir=4;
+}
+draw();
+}
+
+//扫雷
+function startMine(){
+let c=document.getElementById("can");
+let ctx=c.getContext("2d");
+let map=[],w=10;
+for(let i=0;i<w;i++){map[i]=[];for(let j=0;j<w;j++)map[i][j]=Math.random()>0.8?9:0;}
+function drawM(){
+ctx.fillStyle="#000";ctx.fillRect(0,0,300,300);
+for(let i=0;i<w;i++){
+for(let j=0;j<w;j++){
+ctx.strokeStyle="#fff";ctx.strokeRect(i*30,j*30,30,30);
+if(map[i][j]==9){ctx.fillStyle="#f00";ctx.fillText("💣",i*30+5,j*30+20);}
+}}}
+drawM();
 }
 </script>
 </body>
 </html>
-
