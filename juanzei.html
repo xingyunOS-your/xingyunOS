@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>捐赠支持 xingyunOS</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui, "Microsoft YaHei", sans-serif;}
+:root{
+    --bg-dark:#0a0a0d;
+    --bg-card:#121218;
+    --bg-hover:#1a1a25;
+    --main-blue:#007bff;
+    --light-blue:#3399ff;
+    --text-white:#ffffff;
+    --text-gray:#b0b0b8;
+    --border-color:#252530;
+}
+html{scroll-behavior:smooth;}
+body{
+    background:var(--bg-dark);
+    color:var(--text-white);
+    line-height:1.8;
+    overflow-x:hidden;
+    -webkit-tap-highlight-color:transparent;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+/* 导航栏 */
+nav{
+    position:sticky;
+    top:0;
+    width:100%;
+    background:rgba(10,10,13,0.85);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border-color);
+    z-index:999;
+    padding:12px 0;
+}
+.nav-container{
+    max-width:1400px;
+    margin:0 auto;
+    padding:0 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+.logo{
+    font-size:22px;
+    font-weight:bold;
+    color:var(--main-blue);
+    letter-spacing:0.5px;
+}
+.nav-menu{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+.nav-menu a{
+    color:var(--text-white);
+    text-decoration:none;
+    font-size:15px;
+    transition:all 0.3s;
+}
+.nav-menu a:hover{
+    color:var(--main-blue);
+}
+/* 主内容区 */
+.main-content{
+    flex:1;
+    max-width:800px;
+    margin:60px auto;
+    padding:0 20px;
+    text-align:center;
+    width:100%;
+}
+.main-content h1{
+    font-size:36px;
+    margin-bottom:20px;
+    background:linear-gradient(135deg,var(--main-blue),#80bfff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+}
+.desc{
+    font-size:17px;
+    color:var(--text-gray);
+    margin-bottom:40px;
+    line-height:1.8;
+}
+.donate-card{
+    background:var(--bg-card);
+    border:1px solid var(--border-color);
+    border-radius:16px;
+    padding:40px 20px;
+    margin-bottom:30px;
+}
+.donate-card h3{
+    font-size:24px;
+    margin-bottom:15px;
+    color:var(--main-blue);
+}
+.qrcode-img{
+    width:260px;
+    max-width:100%;
+    border-radius:12px;
+    border:2px solid var(--border-color);
+    margin:20px 0;
+}
+.btn-back{
+    display:inline-block;
+    padding:14px 35px;
+    background:var(--main-blue);
+    color:white;
+    border:none;
+    border-radius:12px;
+    font-size:17px;
+    cursor:pointer;
+    transition:all 0.3s;
+    text-decoration:none;
+    margin-top:20px;
+}
+.btn-back:hover{
+    background:var(--light-blue);
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(0,123,255,0.3);
+}
+/* 页脚 */
+footer{
+    background:var(--bg-card);
+    border-top:1px solid var(--border-color);
+    padding:30px 20px;
+    margin-top:auto;
+}
+.copyright{
+    text-align:center;
+    color:var(--text-gray);
+    font-size:14px;
+}
+/* 响应式适配 */
+@media (max-width:768px){
+    .main-content h1{font-size:28px;}
+    .qrcode-img{width:220px;}
+    .nav-menu{gap:10px;}
+}
+</style>
+</head>
+<body>
+<!-- 导航栏 -->
+<nav>
+    <div class="nav-container">
+        <div class="logo">xingyunOS</div>
+        <div class="nav-menu">
+            <a href="index.html">首页</a>
+            <a href="index.html#intro">系统介绍</a>
+            <a href="index.html#feature">核心特性</a>
+            <a href="index.html#download">立即下载</a>
+            <a href="index.html#faq">常见问题</a>
+        </div>
+    </div>
+</nav>
+
+<!-- 主内容区 -->
+<div class="main-content">
+    <h1>💸 捐赠支持 xingyunOS</h1>
+    <p class="desc">
+        xingyunOS 完全免费开源，所有系统更新、技术维护、用户服务均由个人独立完成。<br>
+        你的每一份捐赠，都是对我持续开发、优化系统的最大动力，金额随意，心意最重。<br>
+        感谢每一位支持星云OS的朋友 ✨
+    </p>
+
+    <div class="donate-card">
+        <h3>扫码捐赠</h3>
+        <p>微信/QQ扫码即可自愿打赏，支持星云OS持续更新</p>
+        <!-- 二维码图片，和juanzei.html同级目录，文件名0.png -->
+        <img src="0.png" alt="捐赠二维码" class="qrcode-img">
+    </div>
+
+    <a href="index.html" class="btn-back">返回官网首页</a>
+</div>
+
+<!-- 页脚 -->
+<footer>
+    <div class="copyright">
+        <p>© 2026 xingyunOS 官方网站 版权所有 | 基于安卓9深度定制 | VMOS Pro专属系统</p>
+    </div>
+</footer>
+</body>
+</html>
+
