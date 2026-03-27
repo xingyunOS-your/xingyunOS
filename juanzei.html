@@ -70,7 +70,7 @@ nav{
 /* 主内容区 */
 .main-content{
     flex:1;
-    max-width:800px;
+    max-width:900px;
     margin:60px auto;
     padding:0 20px;
     text-align:center;
@@ -90,25 +90,44 @@ nav{
     margin-bottom:40px;
     line-height:1.8;
 }
-.donate-card{
+
+/* 双二维码并排 */
+.donate-wrap{
+    display:flex;
+    gap:30px;
+    justify-content:center;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    margin-bottom:30px;
+}
+.donate-item{
     background:var(--bg-card);
     border:1px solid var(--border-color);
     border-radius:16px;
-    padding:40px 20px;
-    margin-bottom:30px;
+    padding:30px 20px;
+    min-width:260px;
+    max-width:320px;
+    flex:1;
 }
-.donate-card h3{
-    font-size:24px;
-    margin-bottom:15px;
+.donate-item h3{
+    font-size:22px;
+    margin-bottom:12px;
     color:var(--main-blue);
 }
+.donate-item p{
+    color:var(--text-gray);
+    font-size:15px;
+    margin-bottom:16px;
+}
 .qrcode-img{
-    width:260px;
+    width:220px;
     max-width:100%;
     border-radius:12px;
     border:2px solid var(--border-color);
-    margin:20px 0;
+    display:block;
+    margin:0 auto;
 }
+
 .btn-back{
     display:inline-block;
     padding:14px 35px;
@@ -142,7 +161,8 @@ footer{
 /* 响应式适配 */
 @media (max-width:768px){
     .main-content h1{font-size:28px;}
-    .qrcode-img{width:220px;}
+    .qrcode-img{width:200px;}
+    .donate-wrap{gap:20px;}
     .nav-menu{gap:10px;}
 }
 </style>
@@ -168,14 +188,20 @@ footer{
     <p class="desc">
         xingyunOS 完全免费开源，所有系统更新、技术维护、用户服务均由个人独立完成。<br>
         你的每一份捐赠，都是对我持续开发、优化系统的最大动力，金额随意，心意最重。<br>
-        感谢每一位支持星云OS的朋友 ✨
+        感谢每一位支持星月OS的朋友 ✨
     </p>
 
-    <div class="donate-card">
-        <h3>扫码捐赠</h3>
-        <p>微信/QQ扫码即可自愿打赏，支持星云OS持续更新</p>
-        <!-- 二维码图片，和juanzei.html同级目录，文件名0.png -->
-        <img src="0.png" alt="捐赠二维码" class="qrcode-img">
+    <div class="donate-wrap">
+        <div class="donate-item">
+            <h3>QQ 捐赠</h3>
+            <p>QQ 扫码自愿打赏</p>
+            <img src="qq.png" alt="QQ捐赠二维码" class="qrcode-img">
+        </div>
+        <div class="donate-item">
+            <h3>微信 捐赠</h3>
+            <p>微信 扫码自愿打赏</p>
+            <img src="wx.png" alt="微信捐赠二维码" class="qrcode-img">
+        </div>
     </div>
 
     <a href="index.html" class="btn-back">返回官网首页</a>
