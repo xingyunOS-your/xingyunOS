@@ -15,6 +15,7 @@
     --text-white:#ffffff;
     --text-gray:#b0b0b8;
     --border-color:#252530;
+    --beta-orange:#ff6600;
 }
 html{scroll-behavior:smooth;}
 body{
@@ -179,25 +180,42 @@ nav{
     background:var(--bg-card);
     border-radius:20px;
     padding:40px 20px;
-    text-align:center;
     margin:60px auto;
     max-width:1200px;
     border:1px solid var(--border-color);
 }
 .download-section h2{
     font-size:30px;
-    margin-bottom:15px;
+    margin-bottom:30px;
+    text-align:center;
 }
-.download-section p{
+.download-version-block{
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+}
+.download-version-block:last-child{
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+.download-version-block h3{
+    font-size:24px;
+    margin-bottom:15px;
+    text-align:center;
+}
+.download-version-block p{
     font-size:16px;
     color:var(--text-gray);
-    margin-bottom:30px;
+    text-align:center;
+    margin-bottom:10px;
 }
 .download-btn-group{
     display:flex;
     gap:15px;
     justify-content:center;
     flex-wrap:wrap;
+    margin-top:20px;
 }
 /* 小游戏区域 */
 .game-section{
@@ -334,7 +352,7 @@ footer{
 </head>
 <body>
 
-<!-- 导航栏（新增捐赠支持入口） -->
+<!-- 导航栏 -->
 <nav>
     <div class="nav-container">
         <div class="logo">xingyunOS</div>
@@ -345,19 +363,17 @@ footer{
             <a href="#download">立即下载</a>
             <a href="#game">休闲小游戏</a>
             <a href="#faq">常见问题</a>
-            <a href="juanzei.html">捐赠支持</a>
         </div>
     </div>
 </nav>
 
-<!-- 首屏区域（新增捐赠按钮） -->
+<!-- 首屏区域 -->
 <div class="hero" id="home">
     <h1>xingyunOS 官方网站</h1>
     <p class="slogan">基于安卓9 Pie深度定制，专为VMOS Pro打造的ARM 32/64位轻量、流畅、无广告专属系统，让你的虚拟机重获新生，体验极致纯净的安卓环境</p>
     <div class="btn-group">
         <a href="#download" class="btn-primary">立即下载</a>
         <a href="#intro" class="btn-secondary">了解系统</a>
-        <a href="juanzei.html" class="btn-primary">💸 捐赠支持</a>
     </div>
 </div>
 
@@ -427,12 +443,28 @@ footer{
 
 <!-- 下载中心区域 -->
 <div class="download-section" id="download">
-    <h2>立即下载</h2>
-    <p>当前最新版本：xingyunOS 1.0 正式版 | 基于安卓9深度定制 | 仅支持VMOS Pro | 适配ARM 32/64位 | 更新时间：2026年03月19日</p>
-    <p>历史版本仅当前1.0正式版，无其他历史版本。点击下方对应网盘按钮，即可下载系统镜像文件，点击后自动跳转下载页面，同时复制提取码。</p>
-    <div class="download-btn-group">
-        <button class="btn-primary" onclick="openTianyi()">天翼云盘下载</button>
-        <button class="btn-primary" onclick="open123Pan()">123网盘下载</button>
+    <h2>下载中心</h2>
+    
+    <!-- 正式版区域 -->
+    <div class="download-version-block">
+        <h3 style="color: var(--main-blue);">xingyunOS 1.0 正式版</h3>
+        <p>基于安卓9深度定制 | 仅支持VMOS Pro | 适配ARM 32/64位 | 更新时间：2026年03月19日</p>
+        <p>永久免费、无广告、无预装，专为VMOS Pro优化的稳定正式版本，适合日常长期使用。点击下方对应网盘按钮，即可下载系统镜像文件，点击后自动跳转下载页面，同时复制提取码。</p>
+        <div class="download-btn-group">
+            <button class="btn-primary" onclick="openTianyi()">天翼云盘下载</button>
+            <button class="btn-primary" onclick="open123Pan()">123网盘下载</button>
+        </div>
+    </div>
+
+    <!-- 内测版区域 -->
+    <div class="download-version-block">
+        <h3 style="color: var(--beta-orange);">xingyueOS 1.0 beta 内测版</h3>
+        <p><strong>基于原生安卓10深度定制</strong> | 全新架构重构 | 专属ARM 64位优化 | 更新时间：2026年03月28日</p>
+        <p>全新内测版本，基于安卓10底层打造，采用全新系统架构，针对VMOS Pro 64位虚拟机做了专属深度优化，带来更强的性能与更极致的流畅体验。</p>
+        <p>升级优化ART运行时环境，应用启动速度提升10%以上，内存管理更高效，长时间运行无卡顿；升级权限管控体系，支持仅在使用时授权，隐私保护更全面；完善64位架构支持，性能释放更充分，游戏与高负载应用运行更稳定；新增多项专属功能，优先体验最新特性，适合喜欢尝鲜的用户。</p>
+        <div class="download-btn-group">
+            <button class="btn-primary" style="background: var(--beta-orange);" onclick="open123PanBeta()">123网盘下载</button>
+        </div>
     </div>
 </div>
 
@@ -529,7 +561,6 @@ footer{
             <h4>关注我们</h4>
             <a href="https://github.com/xingyunOS-your/xingyunOS">GitHub仓库</a>
             <a href="mailto:3835347820@qq.com">开发者邮箱</a>
-            <a href="juanzei.html">捐赠支持</a>
         </div>
     </div>
     <div class="copyright">
@@ -551,7 +582,7 @@ function showTip(text){
     }, 2000);
 }
 
-// 网盘跳转逻辑 先跳转再复制，确保跳转精准
+// 正式版网盘跳转逻辑
 function openTianyi(){
     window.open("https://cloud.189.cn/t/be267fBzaYFr","_blank");
     try{
@@ -576,6 +607,12 @@ function open123Pan(){
     }catch(e){
         showTip("跳转成功，提取码：xVSp");
     }
+}
+
+// 内测版网盘跳转逻辑
+function open123PanBeta(){
+    window.open("https://www.123865.com/s/BotTvd-U3v1","_blank");
+    showTip("跳转成功，内测版镜像下载页面已打开");
 }
 
 // FAQ折叠功能
